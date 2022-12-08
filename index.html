@@ -14,6 +14,7 @@
   <body>
     <div class="intro">
       <h1>Tårnet af Hanoi</h1>
+      <h2>Af Mark Johansen</h2>
     </div>
     <div class="content">
       <div class="bar" id="bar1">
@@ -32,7 +33,9 @@
         <button onclick="decrement()"><i class="gg-arrow-down-r"></i></button>
       </div>
       <button onclick="confirm()" class="confirm">Simulate</button>
-    </div>    
+    </div>
+    
+    <h3 style="text-align:center;margin-top:100px;color:#555;font-size:12px;font-family:Arial, Helvetica, sans-serif">Copyright © 2022 af Mark Johansen<br>Alle rettigheder reserveret.</h3>
   </body>
   <style>
     body {
@@ -41,7 +44,7 @@
       box-sizing: border-box;
       width:100vw;
       height:100vh;
-      background:radial-gradient(black, rgb(9,9,9));
+      background:linear-gradient(black, rgb(18,18,18));
       overflow-y: hidden;
     }
 
@@ -109,6 +112,7 @@
       color:white;
       cursor:pointer;
       transition:cubic-bezier(1, 0, 0, 1);
+      border:0;
     }
 
     .confirm {
@@ -157,8 +161,6 @@
     var A = []
     var B = []
     var C = []
-
-    
 
     var ABar = document.getElementById("bar1")
     var BBar = document.getElementById("bar2")
@@ -223,6 +225,7 @@
     }
 
     function confirm() {
+      
       for (let i=n; i>0; --i) {
         steps[0][0].push(i)
         A.push(i)
@@ -236,7 +239,7 @@
       for (let i=1; i<steps.length; ++i) {
         setTimeout(() => {
           update(steps[i])
-        }, 100*i)
+        }, 500*i)
       }
 
       //update()
