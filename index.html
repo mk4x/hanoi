@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hanoi Visualizer</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="A website that visualizes Hanoi">
+    <meta name="keywords" content="Hanoi">
+    <meta name="author" content="Mark Johansen">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- icons -->
+    <link href='https://css.gg/arrow-up-r.css' rel='stylesheet'>
+    <link href='https://css.gg/arrow-down-r.css' rel='stylesheet'>
+  </head>
+  <body>
+    <div class="intro">
+      <h1>Tårnet af Hanoi</h1>
+    </div>
+    <div class="content">
+      <div class="bar" id="bar1">
+        
+      </div>
+      <div class="bar" id="bar2"></div>
+      <div class="bar" id="bar3"></div>
+    </div>
+    <div class="bottomBar"></div>
+
+    
+    <div class="inputs">
+      <h1 id="count">6</h1>
+      <div class="buttons">
+        <button onclick="increment()"><i class="gg-arrow-up-r"></i></button>
+        <button onclick="decrement()"><i class="gg-arrow-down-r"></i></button>
+      </div>
+      <button onclick="confirm()" class="confirm">Simulate</button>
+    </div>    
+  </body>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      width:100vw;
+      height:100vh;
+      background:radial-gradient(black, rgb(9,9,9));
+      overflow-y: hidden;
+    }
+
+    h1 {
+      color:white;
+      font-family:Arial, Helvetica, sans-serif;
+      text-align: center;
+    }
+    
+    h2 {
+      color:rgb(181, 181, 181);
+      font-family:Arial, Helvetica, sans-serif;
+      text-align: center;
+      font-size:smaller;
+    }
+
+    .intro {
+      margin-top: 30px;
+      margin-bottom: 60px;
+    }
+
+    .content {
+      display:flex;
+      justify-content: space-around;
+      align-items: center;
+      width:80%;
+      margin:0 auto;    
+    }
+
+    .bar {
+      width:20px;
+      height:220px;
+      border-top-left-radius: 30px;
+      border-top-right-radius: 30px;
+      background-color: rgb(69, 69, 69);
+      display:flex;
+      justify-content:flex-end;
+      flex-direction: column;
+      align-items:center;
+    }
+
+    .bottomBar {
+      width:90%;
+      height:25px;
+      margin: auto;
+      border-radius: 30px;
+      background-color: rgb(40, 40, 40);
+    }
+
+    .inputs {
+      display:flex;
+      width:100%;
+      justify-content:center;
+      margin: 20px 0;
+    }
+
+    .buttons {
+      display:flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+
+    .buttons>button {
+      background:transparent;
+      color:white;
+      cursor:pointer;
+      transition:cubic-bezier(1, 0, 0, 1);
+    }
+
+    .confirm {
+      background:rgb(30, 82, 255);
+      height:50px;
+      width:125px;
+      margin-left:15px;
+      margin-top:14px;
+      color:white;
+      border-radius:15px;
+      padding:2px 10px;
+      cursor:pointer;
+      transition:0.6;
+    }
+    
+    .confirm:hover {
+      background:rgb(0, 42, 179)
+    }
+
+  </style>
+  <script>
+    var n = 5;
+
+    var count = document.getElementById("count")
+    count.innerHTML = n;
+
+    function increment() {
+      n += 1;
+      count.innerHTML = n;
+    }
+
+    function decrement() {
+      n -= 1;
+      count.innerHTML = n;
+    }
+    
+    var colors = ["red", "orange", "yellow", "green", "blue", "purple", "white", "lightblue", "pink", "darkred"]
+
+    function removeAllChildNodes(parent) {
+      while (parent.firstChild) {
+          parent.removeChild(parent.firstChild);
+      }
+    }
+
+    var steps = [[[], [], []]]
+    var A = []
+    var B = []
+    var C = []
+
+    
+
+    var ABar = document.getElementById("bar1")
+    var BBar = document.getElementById("bar2")
+    var CBar = document.getElementById("bar3")
+
+    function update(step) {
+      console.log(step)
+      removeAllChildNodes(ABar)
+      removeAllChildNodes(BBar)
+      removeAllChildNodes(CBar)
+
+      for (let i=n-1; i>=0; --i) {
+        const node = document.createElement("div");
+        node.style.backgroundColor = colors[step[0][i]-1];
+        node.style.borderRadius = "13px";
+        node.style.width = 75 + (step[0][i])*15 + "px";
+        node.style.height = "30px";
+        ABar.appendChild(node)
+      }
+
+      for (let i=n-1; i>=0; --i) {
+        const node = document.createElement("div");
+        node.style.backgroundColor = colors[step[1][i]-1];
+        node.style.borderRadius = "13px";
+        node.style.width = 75 + (step[1][i])*15 + "px";
+        node.style.height = "30px";
+        BBar.appendChild(node)
+      }
+
+      for (let i=n-1; i>=0; --i) {
+        const node = document.createElement("div");
+        node.style.backgroundColor = colors[step[2][i]-1];
+        node.style.borderRadius = "13px";
+        node.style.width = 75 + (step[2][i])*15 + "px";
+        node.style.height = "30px";
+        CBar.appendChild(node)
+      }
+    }
+
+    function move(n, source, target, auxiliary) {
+      if (n > 0) {
+        move(n-1, source, auxiliary, target)
+
+        target.push(source.pop())
+        
+        // clone values
+        var tempStep = [];
+        var temp;
+        for (lst of [A,B,C]) {
+          temp = [];
+          for (i of lst) {
+            temp.push(i)
+          }
+          tempStep.push(temp)
+        }
+        steps.push(tempStep)
+                
+        //console.log(A, B, C)
+
+        move(n - 1, auxiliary, target, source)
+      }
+    }
+
+    function confirm() {
+      for (let i=n; i>0; --i) {
+        steps[0][0].push(i)
+        A.push(i)
+      }
+
+
+      update(steps[0])
+      move(n, A, C, B)
+    
+
+      for (let i=1; i<steps.length; ++i) {
+        setTimeout(() => {
+          update(steps[i])
+        }, 100*i)
+      }
+
+      //update()
+      //move(4, A, C, B)
+      console.log(steps)
+    }
+
+    
+
+
+  </script>
+</html>
