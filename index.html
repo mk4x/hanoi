@@ -16,10 +16,9 @@
       <h1>Tårnet af Hanoi</h1>
       <h2>Af Mark Johansen</h2>
     </div>
+
     <div class="content">
-      <div class="bar" id="bar1">
-        
-      </div>
+      <div class="bar" id="bar1"></div>
       <div class="bar" id="bar2"></div>
       <div class="bar" id="bar3"></div>
     </div>
@@ -35,7 +34,7 @@
       <button onclick="confirm()" class="confirm">Simulate</button>
     </div>
     
-    <h3 style="text-align:center;margin-top:100px;color:#555;font-size:12px;font-family:Arial, Helvetica, sans-serif">Copyright © 2022 af Mark Johansen<br>Alle rettigheder reserveret.</h3>
+    <h3 style="text-align:center;margin-top:50px;color:#555;font-size:12px;font-family:Arial, Helvetica, sans-serif">Copyright © 2022 af Mark Johansen<br>Alle rettigheder reserveret.</h3>
   </body>
   <style>
     body {
@@ -62,21 +61,21 @@
     }
 
     .intro {
-      margin-top: 30px;
-      margin-bottom: 60px;
+      margin-top: 50px;
+      margin-bottom: 10vh;
     }
 
     .content {
       display:flex;
       justify-content: space-around;
       align-items: center;
-      width:80%;
+      width:50%;
       margin:0 auto;    
     }
 
     .bar {
-      width:20px;
-      height:220px;
+      width:40px;
+      height:300px;
       border-top-left-radius: 30px;
       border-top-right-radius: 30px;
       background-color: rgb(69, 69, 69);
@@ -87,8 +86,8 @@
     }
 
     .bottomBar {
-      width:90%;
-      height:25px;
+      width:55%;
+      height:45px;
       margin: auto;
       border-radius: 30px;
       background-color: rgb(40, 40, 40);
@@ -175,27 +174,27 @@
       for (let i=n-1; i>=0; --i) {
         const node = document.createElement("div");
         node.style.backgroundColor = colors[step[0][i]-1];
-        node.style.borderRadius = "13px";
-        node.style.width = 75 + (step[0][i])*15 + "px";
-        node.style.height = "30px";
+        node.style.borderRadius = "20px";
+        node.style.width = 125 + (step[0][i])*15 + "px";
+        node.style.height = "35px";
         ABar.appendChild(node)
       }
 
       for (let i=n-1; i>=0; --i) {
         const node = document.createElement("div");
         node.style.backgroundColor = colors[step[1][i]-1];
-        node.style.borderRadius = "13px";
-        node.style.width = 75 + (step[1][i])*15 + "px";
-        node.style.height = "30px";
+        node.style.borderRadius = "20px";
+        node.style.width = 125 + (step[1][i])*15 + "px";
+        node.style.height = "35px";
         BBar.appendChild(node)
       }
 
       for (let i=n-1; i>=0; --i) {
         const node = document.createElement("div");
         node.style.backgroundColor = colors[step[2][i]-1];
-        node.style.borderRadius = "13px";
-        node.style.width = 75 + (step[2][i])*15 + "px";
-        node.style.height = "30px";
+        node.style.borderRadius = "20px";
+        node.style.width = 125 + (step[2][i])*15 + "px";
+        node.style.height = "35px";
         CBar.appendChild(node)
       }
     }
