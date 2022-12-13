@@ -32,9 +32,10 @@
         <button onclick="decrement()"><i class="gg-arrow-down-r"></i></button>
       </div>
       <button onclick="confirm()" class="confirm">Simulate</button>
+      <h1 id="iteration" style="position:relative;left:50px;">Iteration: </h1>
     </div>
     
-    <h3 style="text-align:center;margin-top:50px;color:#555;font-size:12px;font-family:Arial, Helvetica, sans-serif">Copyright © 2022 af Mark Johansen<br>Alle rettigheder reserveret.</h3>
+    <h3 style="text-align:center;margin-top:50px;color:#555;font-size:12px;font-family:Arial, Helvetica, sans-serif">By Mark Johansen 😎</h3>
   </body>
   <style>
     body {
@@ -125,6 +126,7 @@
       padding:2px 10px;
       cursor:pointer;
       transition:0.6;
+      font-size: 20px;
     }
     
     .confirm:hover {
@@ -133,6 +135,10 @@
 
   </style>
   <script>
+    var iteration = 0;
+    var iterationText = document.getElementById("iteration");
+    iterationText.innerHTML = "Iteration: " + iteration;
+
     var n = 5;
 
     var count = document.getElementById("count")
@@ -238,7 +244,9 @@
       for (let i=1; i<steps.length; ++i) {
         setTimeout(() => {
           update(steps[i])
-        }, 500*i)
+          iteration += 1;
+          iterationText.innerHTML = "Iteration: " + iteration;
+        }, 200*i)
       }
 
       //update()
